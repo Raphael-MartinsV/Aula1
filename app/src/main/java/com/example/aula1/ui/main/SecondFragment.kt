@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.aula1.R
+import androidx.lifecycle.ViewModelProvider
 
 import com.example.aula1.databinding.FragmentSecondBinding
 
@@ -14,6 +13,12 @@ class SecondFragment: Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +30,17 @@ class SecondFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener{
-            findNavController().navigate(R.id.action_SecondFragment_to_MainFragment)
+        binding.buttonLiveData.setOnClickListener{
+
+        }
+        binding.buttonStateFlow.setOnClickListener{
+
+        }
+        binding.buttonFlow.setOnClickListener{
+
+        }
+        binding.buttonSharedFlow.setOnClickListener{
+
         }
     }
 }
