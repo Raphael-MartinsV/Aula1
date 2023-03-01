@@ -4,9 +4,9 @@
     <string name="mainFragment">MainFragment</string>
     <string name="next_page">Next Page</string>
     <string name="hello_world">Hello World</string>
-    <string name="understood">Entendi</string>
     <string name="live_data">Live Data</string>
     <string name="state_flow">State Flow</string>
     <string name="flow">Flow</string>
     <string name="shared_flow">Shared Flow</string>
+    <string name="understood">Entendi</string>
 </resources>
