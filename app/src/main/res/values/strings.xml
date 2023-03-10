@@ -9,4 +9,6 @@
     <string name="flow">Flow</string>
     <string name="shared_flow">Shared Flow</string>
     <string name="understood">Entendi</string>
+    <string name="android_name">Android</string>
+    <string name="android_description">Card Description </string>
 </resources>
