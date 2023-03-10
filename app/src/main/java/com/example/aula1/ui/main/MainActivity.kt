@@ -31,4 +31,8 @@ class MainActivity : AppCompatActivity() {
             navHostFragment.navController.setGraph(graph, args)
         }
     }
+
+    companion object {
+        const val EXTRA_MESSAGE = "Message"
+    }
 }

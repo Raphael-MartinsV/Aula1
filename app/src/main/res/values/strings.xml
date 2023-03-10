@@ -11,4 +11,9 @@
     <string name="understood">Entendi</string>
     <string name="android_name">Android</string>
     <string name="android_description">Card Description </string>
+    <string name="notify_channel_name">Default</string>
+    <string name="notify_channel_description">Channel default of notifications</string>
+    <string name="notify_title">Created notification</string>
+    <string name="notify_text">This is a notification</string>
+    <string name="notification_action">Notification Action</string>
 </resources>
