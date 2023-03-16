@@ -2,13 +2,14 @@ package com.example.aula1.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aula1.domain.mapper.toModel
 import com.example.aula1.domain.model.SampleModel
 import com.example.aula1.domain.repository.SampleRepository
 import com.example.aula1.networking.models.SampleResponse
-import com.example.aula1.networking.service.APIListener
+import com.example.aula1.networking.service.Resource
 import com.example.aula1.ui.model.ErrorModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -30,6 +31,15 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
 
     private val _sampleError = MutableLiveData<ErrorModel>()
     val sampleError: LiveData<ErrorModel> = _sampleError
+
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val callObserver: Observer<Resource<List<SampleResponse>>> =
+        Observer { response ->  processResponse(response)}
+
+    private suspend fun callObserverAPI() {
+        repository.getSampleData().observeForever { callObserver.onChanged(it) }
+    }
 
     fun triggerLiveData() {
         _liveData.value = "LiveData"
@@ -56,20 +66,41 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
 
     fun getSampleData() {
         viewModelScope.launch {
-            repository.getSampleData(object : APIListener<List<SampleResponse>> {
-                override fun onSuccess(result: List<SampleResponse>) {
-                    _sampleData.value = result.toModel()
-                }
-
-                override fun onFailure(message: String) {
-                    _sampleError.value = ErrorModel(
-                        title = "Erro na chamada da API",
-                        message = message,
-                        errorCode = "0001"
-                    )
-                }
-            }
-            )
+            callObserverAPI()
+            repository.getSampleData()
         }
+    }
+
+    private fun processResponse(response: Resource<List<SampleResponse>>?) {
+        when(response?.status) {
+            Resource.Status.SUCCESS -> {
+                setLoading(false)
+                response.data?.let { sampleDataOnSuccess(it) }
+            }
+            Resource.Status.ERROR -> {
+                setLoading(false)
+                response.apiError?.let { sampleDataOnError(it) }
+            }
+            Resource.Status.LOADING -> {
+                setLoading(true)
+            }
+            null -> TODO()
+        }
+    }
+
+    private fun sampleDataOnSuccess(resultResponse: List<SampleResponse>){
+        _sampleData.value = resultResponse.toModel()
+    }
+
+    private fun sampleDataOnError(message: String){
+        _sampleError.value = ErrorModel(
+            title = "Erro na chamada de api",
+            message = message,
+            errorCode = "0001"
+        )
+    }
+
+    fun setLoading(isStateLoading: Boolean) {
+        isLoading.value = isStateLoading
     }
 }
