@@ -30,6 +30,7 @@ class SampleBottomSheetFragment(private val helper: SampleHelper) : BottomSheetD
     }
 
     private fun setBottomSheet() {
+        //configurando os parâmetros da bottomsheet
         binding.run {
             androidTitle.text = helper.title
             androidDescription.text = helper.description
@@ -37,12 +38,14 @@ class SampleBottomSheetFragment(private val helper: SampleHelper) : BottomSheetD
     }
 
     private fun setListener() {
+        //definindo a ação do botão da bottomsheet
         binding.button.setOnClickListener{
             dismiss()
         }
     }
 
     companion object {
+        //criando a função que irá instanciar a bottomsheet
         fun newInstance(helper: SampleHelper): SampleBottomSheetFragment {
             return SampleBottomSheetFragment(helper)
         }

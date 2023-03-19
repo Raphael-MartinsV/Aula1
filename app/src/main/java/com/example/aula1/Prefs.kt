@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Prefs(context: Context) {
+    //Classe que configura os sharedPreferences baseado em um inteiro informado
 
     private val preferences: SharedPreferences =
         context.getSharedPreferences(APP_PREF_INT, Context.MODE_PRIVATE)

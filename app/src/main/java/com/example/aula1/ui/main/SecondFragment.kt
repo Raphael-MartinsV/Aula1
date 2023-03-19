@@ -66,11 +66,14 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setObserver()
         binding.btnNotification.setOnClickListener {
+            //chama a função que irá criar a notificação com um botão
             NotificationUtils.notificationWithButtonAction(requireContext())
         }
         binding.buttonLiveData.setOnClickListener {
+            //seta um novo helper com titulo e descrição
             val helper: SampleHelper? = setInfoHelper()[sampleConst1]
             if (helper != null) {
+                //passa como parâmetro o novo helper pra exibilo na bottomsheet
                 showBottomSheet(helper)
             }
         }
@@ -90,6 +93,7 @@ class SecondFragment : Fragment() {
     }
 
     private fun showBottomSheet(sampleHelper: SampleHelper) {
+        //função instanciando um novo bottomSheet
         val sampleBottomSheetFragment: SampleBottomSheetFragment =
             SampleBottomSheetFragment.newInstance(sampleHelper)
         sampleBottomSheetFragment.show(
@@ -99,12 +103,14 @@ class SecondFragment : Fragment() {
     }
 
     fun showKeyboard(context: Context) {
+        //função que força exibir o teclado baseado no contexto atual
         (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
             InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY
         )
     }
 
     fun hideKeyboard(context: Context) {
+        //função que força a esconder o teclado baseado no contexto atual
         try {
             (context as Activity).window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
             if (context.currentFocus != null && context.currentFocus!!.windowToken != null){

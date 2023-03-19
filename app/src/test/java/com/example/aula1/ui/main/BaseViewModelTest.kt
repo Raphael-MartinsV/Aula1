@@ -7,6 +7,7 @@ import org.junit.Rule
 
 @ExperimentalCoroutinesApi
 abstract class BaseViewModelTest {
+    //ViewModel Base de test que seta as regras e cria funções abstratas que devem ser implementadas
 
     @get: Rule
     val rule = InstantTaskExecutorRule()

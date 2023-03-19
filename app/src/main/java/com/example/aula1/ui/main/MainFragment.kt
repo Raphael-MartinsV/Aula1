@@ -46,23 +46,29 @@ class MainFragment : Fragment() {
 
     private fun initFragment(){
         binding.button.setOnClickListener {
+            //navegação da primeira tela pra segunda tela
             findNavController().navigate(R.id.action_MainFragment_to_SecondFragment)
         }
     }
 
     private fun setObservers() {
         viewModel.sampleData.observe(viewLifecycleOwner){
+            //Quando retornar os dados da chamada de api iremos setar o adapter com os dados
             adapter = TableInfoAdapter(it)
-            setListener()
+            //setar o listener referente ao adapter
+            setListenerAdapter()
+            //vincular o adapter ao declarado no xml
             binding.tableInfoItems.adapter = adapter
+            //configurar o layoutManager
             binding.tableInfoItems.layoutManager = LinearLayoutManager(context)
         }
         viewModel.sampleError.observe(viewLifecycleOwner){
+            //trativa de erro da chamada de api
             Toast.makeText(context, it.title, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setListener(){
+    private fun setListenerAdapter(){
         adapter.onClick = { helper ->
             if(helper != null) {
                 showBottomSheet(helper)
@@ -71,6 +77,7 @@ class MainFragment : Fragment() {
     }
 
     private fun showBottomSheet(sampleHelper: SampleHelper){
+        //função instanciando um novo bottomSheet
         val sampleBottomSheetFragment: SampleBottomSheetFragment =
             SampleBottomSheetFragment.newInstance(sampleHelper)
         sampleBottomSheetFragment.show(

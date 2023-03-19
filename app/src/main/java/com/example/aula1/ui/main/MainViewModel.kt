@@ -36,20 +36,26 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
 
     private val callObserver: Observer<Resource<List<SampleResponse>>> =
         Observer { response ->  processResponse(response)}
+    //setando observador
+
 
     private suspend fun callObserverAPI() {
+        //suspend function que observa se houve alguma mudança
         repository.getSampleData().observeForever { callObserver.onChanged(it) }
     }
 
     fun triggerLiveData() {
+        //função que seta o liveData
         _liveData.value = "LiveData"
     }
 
     fun triggerStateFlow() {
+        //função que seta o stateFlow
         _stateFlow.value = "StateFlow"
     }
 
     fun triggerFlow(): Flow<String> {
+        //função que seta o Flow para se repetir 3 vezes
         return flow {
             repeat(3) {
                 emit("Item $it")
@@ -59,12 +65,14 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
     }
 
     fun triggerSharedFlow() {
+        //função que seta o sharedFlow
         viewModelScope.launch {
             _sharedFlow.emit("SharedFlow")
         }
     }
 
     fun getSampleData() {
+        //realizamos a chamada na camada de repository e adicionamos o observador
         viewModelScope.launch {
             callObserverAPI()
             repository.getSampleData()
@@ -72,6 +80,7 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
     }
 
     private fun processResponse(response: Resource<List<SampleResponse>>?) {
+        //Aqui iremos processar a response de acordo com o retorno na camada de Repository
         when(response?.status) {
             Resource.Status.SUCCESS -> {
                 setLoading(false)
@@ -89,10 +98,12 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
     }
 
     private fun sampleDataOnSuccess(resultResponse: List<SampleResponse>){
+        //tratativa de sucesso
         _sampleData.value = resultResponse.toModel()
     }
 
     private fun sampleDataOnError(message: String){
+        //tratativa de erro
         _sampleError.value = ErrorModel(
             title = "Erro na chamada de api",
             message = message,
@@ -101,6 +112,7 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
     }
 
     fun setLoading(isStateLoading: Boolean) {
+        //tratativa de loading
         isLoading.value = isStateLoading
     }
 }

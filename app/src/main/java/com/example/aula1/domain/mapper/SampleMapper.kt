@@ -5,6 +5,7 @@ import com.example.aula1.networking.models.SampleResponse
 import com.example.aula1.ui.model.setInfoHelper
 import com.example.aula1.ui.utils.sampleConst1
 
+//Mapeia a response para o modelo da camada de Domain
 fun List<SampleResponse>.toModel(): List<SampleModel>{
     return this.map { item->
         SampleModel(

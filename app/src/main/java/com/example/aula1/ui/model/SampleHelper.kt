@@ -14,12 +14,15 @@ class InfoHelperBuilder {
     var title: CharSequence = ""
     var description: CharSequence = ""
 
+    //realiza o build do SampleHelper
     fun build(): SampleHelper = SampleHelper(title, description)
 }
 
+//configura o builder referente ao infoHelper
 fun infoHelper(block: InfoHelperBuilder.() -> Unit): SampleHelper =
     InfoHelperBuilder().apply(block).build()
 
+//função cria um mapper que retornar um infoHelper baseado na string informada
 fun setInfoHelper(): Map<String, SampleHelper> = mapOf(
     sampleConst1 to infoHelper {
         title = "Texto1"

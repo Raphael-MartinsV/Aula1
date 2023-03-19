@@ -8,6 +8,7 @@ import retrofit2.Response
 open class NetworkCall<T> {
     lateinit var call: Call<T>
 
+    //função que realiza a chamada passando um callback que poderá ser de sucesso ou erro
     fun makeCall(call: Call<T>): MutableLiveData<Resource<T>> {
         this.call = call
         val callBackKt = CallBackKt<T>()
@@ -16,6 +17,7 @@ open class NetworkCall<T> {
         return callBackKt.result
     }
 
+    //função callBack que seta um resultado baseado se o retornado foi de sucesso ou de erro
     class CallBackKt<T>: Callback<T> {
         var result: MutableLiveData<Resource<T>> = MutableLiveData()
 

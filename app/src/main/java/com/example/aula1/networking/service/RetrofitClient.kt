@@ -10,6 +10,7 @@ class RetrofitClient {
     companion object {
         private lateinit var INSTANCE: Retrofit
 
+        //função que realiza a chamada dentro do Retrofit
         private fun getRetrofitInstance(): Retrofit {
             val http = OkHttpClient.Builder()
             if(!::INSTANCE.isInitialized) {
@@ -22,6 +23,7 @@ class RetrofitClient {
             return INSTANCE
         }
 
+        //cria instancia do retrofit
         fun <S> createPostService(serviceClass: Class<S>) : S {
             return getRetrofitInstance().create(serviceClass)
         }

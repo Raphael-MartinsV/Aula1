@@ -6,6 +6,7 @@ import com.example.aula1.ui.model.ErrorModel
 import com.example.aula1.ui.model.setInfoHelper
 import com.example.aula1.ui.utils.sampleConst1
 
+//Objeto que contêm as funções que retornam os mock para os testes
 object SampleFactory {
 
     fun createSampleData() = listOf(

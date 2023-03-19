@@ -25,28 +25,37 @@ import kotlin.test.assertTrue
 
 class MainViewModelTest : BaseViewModelTest() {
 
+    //criamos o mock do repository
     private val sampleRepository: SampleRepository = mockk()
     private lateinit var mainViewModel: MainViewModel
 
+    //inicializamos a ViewModel
     override fun setup() {
         MockKAnnotations.init(this)
         mainViewModel = MainViewModel(sampleRepository)
     }
 
+    //removemos os mocks
     override fun tearDown() = unmockkAll()
 
     @Test
     fun `When SampleRepository returns success and getSampleData returns success`() =
         runBlocking {
+            //criamos os mocks
             val listSampleModel = createSampleData()
             val listResponse = createSampleResponse()
+            //configuramos o retorno da chamada à API
             val mutableSampleData = MutableLiveData(Resource.success(listResponse))
             val sampleData: LiveData<Resource<List<SampleResponse>>> = mutableSampleData
+            //definimos qual o retorno para chamada da função getSampleData()
             coEvery { sampleRepository.getSampleData() } returns sampleData
+            //realizamos a chamada da função getSampleData()
             mainViewModel.getSampleData()
 
+            //definimos o resultado esperado
             val result: LiveData<List<SampleModel>> = MutableLiveData(listSampleModel)
 
+            //verificamos se o resultado esperado é igual ao gerado pela viewModel
             assertEquals(result.value, mainViewModel.sampleData.value)
         }
 

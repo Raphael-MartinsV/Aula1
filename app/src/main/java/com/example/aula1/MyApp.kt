@@ -10,6 +10,8 @@ class MyApp : Application(){
 
     override fun onCreate() {
         super.onCreate()
+        //starta as dependências do Koin setando os módulos
+        //setando o contexto do SharedPreferences
         startKoin {
             androidLogger()
             androidContext(this@MyApp)

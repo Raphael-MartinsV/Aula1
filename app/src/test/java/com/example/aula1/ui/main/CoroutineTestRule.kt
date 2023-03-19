@@ -8,7 +8,8 @@ import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-
+//Como as funções de teste JUnit em si não são funções de suspensão
+// é necessário chamar um builder de corrotinas dentro dos testes para iniciar uma nova corrotina
 @ExperimentalCoroutinesApi
 class CoroutineTestRule(private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher())
     : TestWatcher() {

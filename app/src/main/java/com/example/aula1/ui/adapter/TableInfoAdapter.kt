@@ -12,6 +12,7 @@ class TableInfoAdapter(
     private val tableInfoItems: List<SampleModel>
 ): RecyclerView.Adapter<TableInfoAdapter.TableInfoItemViewHolder>() {
 
+    //criando função lambda que irá realizar o evento de click
     var onClick: ((SampleHelper?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TableInfoItemViewHolder {
@@ -24,12 +25,15 @@ class TableInfoAdapter(
         )
     }
 
+    //determina a quantidade de elementos do adapter
     override fun getItemCount(): Int = tableInfoItems.size
 
+    //irá setar os dados referentes ao xml pra cada posição do adapter
     override fun onBindViewHolder(holder: TableInfoItemViewHolder, position: Int) {
         holder.bind(tableInfoItems[position])
     }
 
+    //criando a função interna que irá setar os dados referente ao xml
     inner class TableInfoItemViewHolder(
         private val binding: SampleInfoTableItemsBinding
     ): RecyclerView.ViewHolder(binding.root) {

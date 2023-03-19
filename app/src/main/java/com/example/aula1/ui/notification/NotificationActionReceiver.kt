@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 
 class NotificationActionReceiver : BroadcastReceiver() {
+    //Receiver que é configura a ação de click do botão
+    //Também é delacrado no manifest
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(
             context,

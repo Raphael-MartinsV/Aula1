@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNavGraph(startDestination: Int, args: Bundle? =null) {
+        //configurando a navegação
+        //passando o fragment inicial e os arumentos iniciais (no caso não temos nenhum)
         binding.run {
             val inflater = navHostFragment.navController.navInflater
             val graph = inflater.inflate(R.navigation.navigation)

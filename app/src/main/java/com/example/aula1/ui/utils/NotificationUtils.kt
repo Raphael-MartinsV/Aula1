@@ -22,9 +22,11 @@ object NotificationUtils {
 
     private const val CHANNEL_ID = "default"
 
+    //função que irá pegar o destino da notificação de som para setar junto a notificação
     private fun getSoundUri(context: Context): Uri =
         Uri.parse("android.resource://${context.packageName}/raw/notification_sound")
 
+    //Intent que irá direionar para o fragment destino do click na notificação
     private fun getContentIntent(context: Context): PendingIntent? {
         val mainIntent = Intent(context, MainActivity::class.java).apply {
             putExtra(MainActivity.EXTRA_MESSAGE, "Via notificação")
@@ -36,6 +38,7 @@ object NotificationUtils {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(context: Context){
+        //função que irá configurar o canal com as configurações base da notificação
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelName = context.getString(R.string.notify_channel_name)
         val channelDescription = context.getString(R.string.notify_channel_description)
