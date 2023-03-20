@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Aula1</string>
     <string name="second_fragment">Second Fragment</string>
+    <string name="third_fragment">Third Fragment</string>
     <string name="mainFragment">MainFragment</string>
     <string name="next_page">Next Page</string>
     <string name="hello_world">Hello World</string>

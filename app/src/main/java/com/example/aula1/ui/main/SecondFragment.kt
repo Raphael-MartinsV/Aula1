@@ -10,6 +10,8 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.aula1.R
 import com.example.aula1.databinding.FragmentSecondBinding
 import com.example.aula1.ui.bottomsheet.SampleBottomSheetFragment
 import com.example.aula1.ui.model.SampleHelper
@@ -78,7 +80,7 @@ class SecondFragment : Fragment() {
             }
         }
         binding.buttonStateFlow.setOnClickListener {
-            showKeyboard(requireContext())
+            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
         }
         binding.buttonFlow.setOnClickListener {
             lifecycleScope.launch {

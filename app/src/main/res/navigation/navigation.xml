@@ -27,6 +27,23 @@
             app:destination="@id/mainFragment">
         </action>
 
+        <action
+            android:id="@+id/action_SecondFragment_to_ThirdFragment"
+            app:destination="@id/thirdFragment">
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.aula1.ui.main.ThirdFragment"
+        android:label="@string/third_fragment">
+
+        <action
+            android:id="@+id/action_ThirdFragment_to_SecondFragment"
+            app:destination="@id/secondFragment">
+        </action>
+
     </fragment>
 
 </navigation>

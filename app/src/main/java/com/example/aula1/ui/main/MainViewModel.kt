@@ -34,6 +34,9 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
+    private val _sampleDataScreen = MutableStateFlow<List<SampleModel>?>(null)
+    val sampleDataScreen : StateFlow<List<SampleModel>?> = _sampleDataScreen
+
     private val callObserver: Observer<Resource<List<SampleResponse>>> =
         Observer { response ->  processResponse(response)}
     //setando observador
@@ -100,6 +103,7 @@ class MainViewModel(private val repository: SampleRepository) : ViewModel() {
     private fun sampleDataOnSuccess(resultResponse: List<SampleResponse>){
         //tratativa de sucesso
         _sampleData.value = resultResponse.toModel()
+        _sampleDataScreen.value = resultResponse.toModel()
     }
 
     private fun sampleDataOnError(message: String){
